@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PolyOculus</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;%E2%9C%A8&lt;/text&gt;&lt;/svg&gt;">
+
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+  <script src="main.js"></script>
+  <head>
+      <style media = "all">
+        body {
+          font-family: 'Noto Sans', sans-serif;
+        }
+        .selectable:hover{
+          /* outline: 3px solid rgb(101, 4, 116); */
+          cursor: pointer;
+          border-radius: 1em;
+          -moz-box-shadow: 0 0 10px #ccc;
+          -webkit-box-shadow: 0 0 10px #ccc;
+          box-shadow: 0 0 10px #978e8e;
+        }
+        .selectable{
+          /* outline: 3px solid rgb(101, 4, 116); */
+          cursor: pointer;
+          border-radius: 1em;
+          -moz-box-shadow: 0 0 10px #eee;
+          -webkit-box-shadow: 0 0 10px #eee;
+          box-shadow: 0 0 10px #cccccc;
+        }
+        .project_author{
+            display:block;
+            text-align: center;
+        }
+       .author_icon{
+            box-shadow: 0 0 1em grey;
+            border-radius: 50%;
+            width:100%;
+        }
+      </style>
+   </head>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body" style="padding-bottom:0;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title text-muted">
+                  PolyOculus: Simultaneous Multi-view Image-based Novel View Synthesis
+          </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="#authors">Jason J. Yu</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#authors">Tristan Aumentado-Armstrong</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#authors">Fereshteh Forghani</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#authors">Konstantinos G. Derpanis</a><sup>1,2,3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#authors">Marcus A. Brubaker</a><sup>1,2</sup>
+            </span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block text-muted">{jjyu,forghani,kosta,marcus.brubaker}@yorku.ca,</span>
+            <span class="author-block text-muted"> taumen@cs.toronto.edu</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>York University,</span>
+            <span class="author-block"><sup>2</sup>Vector Institute for AI,</span>
+            <span class="author-block"><sup>3</sup>Samsung AI Centre Toronto</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <!--<img src="teaser.svg" style="float: right; margin-left:20px; margin-bottom: 10px" width="100%;" />-->
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p class="content has-text-justified">
+This paper considers the problem of generative novel view synthesis (GNVS), generating novel, plausible views of a scene given a limited number of known views.
+Here, we propose a set-based generative model that can simultaneously generate multiple, self-consistent new views, conditioned on any number of views.
+Our approach is not limited to generating a single image at a time and can condition on a variable number of views.
+As a result, when generating a large number of views, our method is not restricted to a low-order autoregressive generation approach and is better able to maintain generated image quality over large sets of images.
+We evaluate our model on standard NVS datasets and show that it outperforms the state-of-the-art image-based GNVS baselines.
+Further, we show that the model is capable of generating sets of views that have no natural sequential ordering, like loops and binocular trajectories, and significantly outperforms other methods on such tasks.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<br/>
+
+<section class="hero teaser" id="authors">
+  <div class="hero-body">
+  <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;padding-left:2em;padding-right:2em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">Authors</h2>
+    <div class="row">
+        <div class="col-6" style='flex:0 0 20%;max-width:20%;'>
+            <a class="project_author" href="https://jasonjyu.com/">
+                <img class="author_icon" src="assets/authors/jason_j_yu.png">
+                <p style='margin-top:0.5em;font-size:1.3em;font-weight:bold;'>Jason J. Yu</p>
+            </a>
+        </div>
+        <div class="col-6" style='flex:0 0 20%;max-width:20%;'>
+            <a class="project_author" href="https://scholar.google.ca/citations?user=mV9zdJMAAAAJ&hl=en">
+                <img class="author_icon" src="assets/authors/Tristan.png">
+                <p style='margin-top:0.5em;font-size:1.3em;font-weight:bold;'> Tristan Aumentado-Armstrong</p>
+            </a>
+        </div>
+        <div class="col-6" style='flex:0 0 20%;max-width:20%;'>
+            <a class="project_author" href="https://fereshtehforghani.github.io/">
+                <img class="author_icon" src="assets/authors/fereshteh.png">
+                <p style='margin-top:0.5em;font-size:1.3em;font-weight:bold;'>Fereshteh Forghani</p>
+            </a>
+        </div>
+        <div class="col-6" style='flex:0 0 20%;max-width:20%;'>
+            <a class="project_author" href="https://csprofkgd.github.io/">
+                <img class="author_icon" src="assets/authors/kosta.jpeg">
+                <p style='margin-top:0.5em;font-size:1.3em;font-weight:bold;'>Konstantinos G. Derpanis</p>
+            </a>
+        </div>
+        <div class="col-6" style='flex:0 0 20%;max-width:20%;'>
+            <a class="project_author" href="https://mbrubake.github.io/">
+                <img class="author_icon" src="assets/authors/marcus_brubaker.png">
+                <p style='margin-top:0.5em;font-size:1.3em;font-weight:bold;'>Marcus A. Brubaker</p>
+            </a>
+        </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="hero teaser" id="authors">
+  <div class="hero-body">
+  <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;padding-left:2em;padding-right:2em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">Material</h2>
+    <div class="row">
+        <a style='max-width:min(15em,40%);margin:auto;' href='https://arxiv.org/abs/2402.17986'>
+            <img style='box-shadow: 0 0 1em grey;' src='assets/paper_preview.png'>
+            <p style='margin-top:1em;'>arXiv</p>
+        </a>
+        <a style='max-width:min(15em,40%);margin:auto;margin-left:1em;margin-right:1em;' href=''>
+            <img style='border-radius:0.5em;padding:1em;box-shadow: 0 0 1em grey;width:10em;' src='assets/github.svg'>
+            <p style='margin-top:1em;'>Coming soon!</p>
+        </a>
+        <a style='max-width:min(15em,40%);margin:auto;' href='#BibTeX'>
+            <img style='border-radius:0.5em;padding:1em;box-shadow: 0 0 1em grey;' src='assets/BibTeX_logo.svg'>
+            <p style='margin-top:1em;'>BibTex</p>
+        </a>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="hero-body">
+  <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">RealEstate10K Qualitative Results: Ground-truth Trajectories</h2>
+    <div class="content has-text-justified">
+      <p class="content has-text-justified">
+        The following examples show generations that follow ground-truth trajectories: camera trajectories from sequences in the RealEstate10K test set.
+        The initial image (first frame) used is taken from the same sequence as the trajectory.
+      </p>
+      <p>
+        Select a scene from the menu below.
+        There are also different plausible generations sampled for each scene which can be selected under "Sample Instance".
+        Use the frame controls to inspect each frame individually, or use the automated playback options which will cycle the sequence forward and backwards.
+      </p>
+    </div>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Scene Selection</h2>
+      <div id='indist-scene-selector' class="row">
+      </div>
+    </div>
+    <br/>
+    <div style='display:none;border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Motion Selection</h2>
+      <div class="row">
+        <div class="col-2"> <div id='indist_selector' onclick='indist_viewer.change_variant("indist");' class=selectable>Orbit</div> </div>
+      </div>
+    </div>
+    <br/>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Sample Instance</h2>
+      <p class="content has-text-justified">
+              These generative models allow multiple plausible realities to be sampled. We provide three here.
+      </p>
+      <div class="row">
+        <div id='indist_sample_selector_1' style='margin-left:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='indist_viewer.change_sample(0);'> 1 </div>
+        <div id='indist_sample_selector_2' style='margin-left:0.4em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='indist_viewer.change_sample(1);'> 2 </div>
+        <div id='indist_sample_selector_3' style='margin-left:0.4em;margin-right:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='indist_viewer.change_sample(2);'> 3 </div>
+      </div>
+    </div>
+    <br/>
+    <h3 class="subtitle">Samples</h2>
+    <div class="row">
+      <div class=col-4 style='flex:0 0 25%;max-width:33%;'>
+        <img id='indist-sde' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle">PhotoCon</h5>
+      </div>
+      <div class=col-4 style='flex:0 0 25%;max-width:33%;'>
+        <img id='indist-set-markov' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle">Ours-Markov</h5>
+      </div>
+      <div class=col-4 style='flex:0 0 25%;max-width:33%;'>
+        <img id='indist-set-all' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle">Ours-1step</h5>
+      </div>
+      <div class=col-4 style='flex:0 0 25%;max-width:33%;'>
+        <img id='indist-set-keyframed' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle">Ours-Keyframed</h5>
+      </div>
+    </div>
+    <br/>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Frame Control (automated playback or manual slider)</h2>
+      <p style='text-align:left;'>
+        Notice that the later frames of the keyframed generations are higher quality.
+      </p>
+      <div class="row">
+        <div class="col-2"> <div onclick='indist_viewer.stop_anim();' class=selectable>Stop animation</div> </div>
+        <div class="col-2"> <div onclick='indist_viewer.cycle_frames(200);' class=selectable>Play at 5fps</div> </div>
+        <div class="col-2"> <div onclick='indist_viewer.cycle_frames(100);' class=selectable>Play at 10fps</div> </div>
+      </div>
+      <br/>
+      <div class="row">
+        <input style="width:100%;margin-left:1em;margin-right:1em;" type="range" min="0" max="20" value="0" id='indist_frame_control' oninput='indist_viewer.change_frame(document.getElementById("indist_frame_control").value);'>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="hero-body">
+  <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">Matterport3D Qualitative Results: Ground-truth Trajectories</h2>
+    <div class="content has-text-justified">
+      <p class="content has-text-justified">
+        The following examples show generations that follow ground-truth trajectories: camera trajectories from sequences in the Matterport3D test set.
+        The initial image (first frame) used is taken from the same sequence as the trajectory.
+      </p>
+      <p>
+        Select a scene from the menu below.
+        There are also different plausible generations sampled for each scene which can be selected under "Sample Instance".
+        Use the frame controls to inspect each frame individually, or use the automated playback options which will cycle the sequence forward and backwards.
+      </p>
+    </div>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Scene Selection</h2>
+      <div id='mp3d-scene-selector' class="row">
+      </div>
+    </div>
+    <br/>
+    <div style='display:none;border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Motion Selection</h2>
+      <div class="row">
+        <div class="col-2"> <div id='mp3d_selector' onclick='mp3d_viewer.change_variant("mp3d");' class=selectable>Orbit</div> </div>
+      </div>
+    </div>
+    <br/>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Sample Instance</h2>
+      <p class="content has-text-justified">
+              These generative models allow multiple plausible realities to be sampled. We provide three here.
+      </p>
+      <div class="row">
+        <div id='mp3d_sample_selector_1' style='margin-left:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='mp3d_viewer.change_sample(0);'> 1 </div>
+        <div id='mp3d_sample_selector_2' style='margin-left:0.4em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='mp3d_viewer.change_sample(1);'> 2 </div>
+        <div id='mp3d_sample_selector_3' style='margin-left:0.4em;margin-right:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='mp3d_viewer.change_sample(2);'> 3 </div>
+      </div>
+    </div>
+    <br/>
+    <h3 class="subtitle">Samples</h2>
+    <div class="row">
+      <div class=col-4 style='flex:0 0 25%;max-width:33%;'>
+        <img id='mp3d-sde' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle">PhotoCon</h5>
+      </div>
+      <div class=col-4 style='flex:0 0 25%;max-width:33%;'>
+        <img id='mp3d-set-markov' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle">Ours-Markov</h5>
+      </div>
+      <div class=col-4 style='flex:0 0 25%;max-width:33%;'>
+        <img id='mp3d-set-all' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle">Ours-1step</h5>
+      </div>
+      <div class=col-4 style='flex:0 0 25%;max-width:33%;'>
+        <img id='mp3d-set-keyframed' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle">Ours-Keyframed</h5>
+      </div>
+    </div>
+    <br/>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Frame Control (automated playback or manual slider)</h2>
+      <p style='text-align:left;'>
+        Notice that the later frames of the keyframed generations are higher quality.
+      </p>
+      <div class="row">
+        <div class="col-2"> <div onclick='mp3d_viewer.stop_anim();' class=selectable>Stop animation</div> </div>
+        <div class="col-2"> <div onclick='mp3d_viewer.cycle_frames(200);' class=selectable>Play at 5fps</div> </div>
+        <div class="col-2"> <div onclick='mp3d_viewer.cycle_frames(100);' class=selectable>Play at 10fps</div> </div>
+      </div>
+      <br/>
+      <div class="row">
+        <input style="width:100%;margin-left:1em;margin-right:1em;" type="range" min="0" max="20" value="0" id='mp3d_frame_control' oninput='mp3d_viewer.change_frame(document.getElementById("mp3d_frame_control").value);'>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="hero-body">
+  <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">DFM Qualitative Results: Ground-truth Trajectories</h2>
+    <div class="content has-text-justified">
+      <p class="content has-text-justified">
+        The following examples show generations that also follow ground-truth trajectories: camera trajectories from sequences in the RealEstate10K test set.
+        The initial image (first frame) used is taken from the same sequence as the trajectory.
+      </p>
+      <p class="content has-text-justified">
+        These results specifically compare our method with DFM-1 (DFM using 1 target view) and DFM-2 (DFM using 2 target views).
+        DFM is a image-to-NeRF method which is in constrast to our method which is image-based.
+        All results are shown at the native resolution of the DFM outputs at 128x128 resolution.
+      </p>
+      <p>
+        Select a scene from the menu below.
+        There are also different plausible generations sampled for each scene which can be selected under "Sample Instance".
+        Use the frame controls to inspect each frame individually, or use the automated playback options which will cycle the sequence forward and backwards.
+      </p>
+    </div>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Scene Selection</h2>
+      <div id='dfm-scene-selector' class="row">
+      </div>
+    </div>
+    <br/>
+    <div style='display:none;border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Motion Selection</h2>
+      <div class="row">
+        <div class="col-2"> <div id='dfm_selector' onclick='dfm_viewer.change_variant("dfm");' class=selectable>Orbit</div> </div>
+      </div>
+    </div>
+    <br/>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Sample Instance</h2>
+      <p class="content has-text-justified">
+              These generative models allow multiple plausible realities to be sampled. We provide three here.
+      </p>
+      <div class="row">
+        <div id='dfm_sample_selector_1' style='margin-left:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='dfm_viewer.change_sample(0);'> 1 </div>
+        <div id='dfm_sample_selector_2' style='margin-left:0.4em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='dfm_viewer.change_sample(1);'> 2 </div>
+        <div id='dfm_sample_selector_3' style='margin-left:0.4em;margin-right:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='dfm_viewer.change_sample(2);'> 3 </div>
+      </div>
+    </div>
+    <br/>
+    <h3 class="subtitle">Samples</h2>
+    <div class="row">
+      <div class=col-5 style='flex:0 0 20%;max-width:33%;'></div>
+      <div class=col-5 style='flex:0 0 20%;max-width:33%;'>
+        <img id='dfm-dfm-1' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle">DFM-1</h5>
+      </div>
+      <div class=col-5 style='flex:0 0 20%;max-width:33%;'>
+        <img id='dfm-dfm-2' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle">DFM-2</h5>
+      </div>
+      <div class=col-5 style='flex:0 0 20%;max-width:33%;'>
+        <img id='dfm-set-keyframed' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle">Ours-Keyframed</h5>
+      </div>
+      <div class=col-5 style='flex:0 0 20%;max-width:33%;'></div>
+    </div>
+    <br/>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Frame Control (automated playback or manual slider)</h2>
+      <p style='text-align:left;'>
+        Notice that the later frames of the keyframed generations are higher quality.
+      </p>
+      <div class="row">
+        <div class="col-2"> <div onclick='dfm_viewer.stop_anim();' class=selectable>Stop animation</div> </div>
+        <div class="col-2"> <div onclick='dfm_viewer.cycle_frames(200);' class=selectable>Play at 5fps</div> </div>
+        <div class="col-2"> <div onclick='dfm_viewer.cycle_frames(100);' class=selectable>Play at 10fps</div> </div>
+      </div>
+      <br/>
+      <div class="row">
+        <input style="width:100%;margin-left:1em;margin-right:1em;" type="range" min="0" max="20" value="0" id='dfm_frame_control' oninput='dfm_viewer.change_frame(document.getElementById("dfm_frame_control").value);'>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+
+<section class="hero teaser">
+  <div class="hero-body">
+  <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">RealEstate10K Qualitative Results: Cyclical Trajectory - Spin</h2>
+    <div class="content has-text-justified">
+      <p class="content has-text-justified">
+        The following examples show our model's ability to generate cycle consistent views.
+        This custom trajectory was introduced in previous work, and defines a camera trajectory that returns to its original position.
+        The camera poses in this set of views has no single obvious ordering.
+        Achieving cycle consistency where scene content is consistent with the last and first frame is challenging with standard autoregressive sampling methods since the limited conditioning window causes the model to "forget" about scene content that moves out of view.
+      </p>
+      <p>
+        Our keyframed method is able to achieve cycle consistency by constraining the generation using keyframes, which jointly cover a large region of the scene.
+        The simultaneous generation of the keyframes avoids the inconsistencies caused by the standard ordering of views along a trajectory.
+      </p>
+    </div>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Scene Selection</h2>
+      <div id='spin-scene-selector' class="row">
+      </div>
+    </div>
+    <br/>
+    <div style='display:none;border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Motion Selection</h2>
+      <div class="row">
+        <div class="col-2"> <div id='spin_selector' onclick='spin_viewer.change_variant("spin");' class=selectable>Orbit</div> </div>
+      </div>
+    </div>
+    <br/>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Sample Instance</h2>
+      <p class="content has-text-justified">
+              These generative models allow multiple plausible realities to be sampled. We provide three here.
+      </p>
+      <div class="row">
+        <div id='spin_sample_selector_1' style='margin-left:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='spin_viewer.change_sample(0);'> 1 </div>
+        <div id='spin_sample_selector_2' style='margin-left:0.4em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='spin_viewer.change_sample(1);'> 2 </div>
+        <div id='spin_sample_selector_3' style='margin-left:0.4em;margin-right:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='spin_viewer.change_sample(2);'> 3 </div>
+      </div>
+    </div>
+    <br/>
+    <h3 class="subtitle">Samples</h2>
+    <div class="row">
+      <div class=col-3 style='flex:0 0 33%;max-width:33%;'>
+        <img id='spin-set-markov' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle">Ours-Markov</h5>
+      </div>
+      <div class=col-3 style='flex:0 0 33%;max-width:33%;'>
+        <img id='spin-set-all' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle">Ours-1step</h5>
+      </div>
+      <div class=col-3 style='flex:0 0 33%;max-width:33%;'>
+        <img id='spin-set-keyframed' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle">Ours-Keyframed</h5>
+      </div>
+    </div>
+    <br/>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Frame Control (automated playback or manual slider)</h2>
+      <p class="content has-text-justified">
+        The automated playback here will loop the sequence rather than play the sequence back and forth to emphasise the cycle inconsistency.
+        Notice that the first and last frames of the non-keyframed methods have inconsistent scene content.
+      </p>
+      <div class="row">
+        <div class="col-2"> <div onclick='spin_viewer.stop_anim();' class=selectable>Stop animation</div> </div>
+        <div class="col-2"> <div onclick='spin_viewer.cycle_frames(200);' class=selectable>Play at 5fps</div> </div>
+        <div class="col-2"> <div onclick='spin_viewer.cycle_frames(100);' class=selectable>Play at 10fps</div> </div>
+        <div class="col-2"> <div onclick='spin_viewer.cycle_first_last();' class=selectable>Loop First and Last</div> </div>
+      </div>
+      <br/>
+      <div class="row">
+        <input style="width:100%;margin-left:1em;margin-right:1em;" type="range" min="0" max="9" value="0" id='spin_frame_control' oninput='spin_viewer.change_frame(document.getElementById("spin_frame_control").value);'>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="hero-body">
+  <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">RealEstate10K Qualitative Results: Stereo Grouped View Generation</h2>
+    <div class="content has-text-justified">
+      <p class="content has-text-justified">
+        In the following example we seek to generate stereo views along a trajectory.
+        For such a set of views, there is no single obvious ordering among the views.
+        As a naive baseline, we generate the stereo pairs by first generating the right view, then the left, before repeating for the next pair in the trajectory.
+        This results in a "zigzag" pattern in the view order for naive sampling.
+      </p>
+      <p>
+        Using our set-based model, we are able to generate groups of views with no ordering within them.
+        For this set of views, the stereo pairs are generated simultaneously, conditioned on the previous stereo pair in the trajectory.
+      </p>
+    </div>
+    <div style='display:none;border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Scene Selection</h2>
+      <div id='stereo-scene-selector' class="row">
+      </div>
+    </div>
+    <div style='display:none;border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Motion Selection</h2>
+      <div class="row">
+        <div class="col-2"> <div id='stereo_selector' onclick='stereo_viewer.change_variant("stereo");' class=selectable>Orbit</div> </div>
+      </div>
+    </div>
+    <div style='display:none;border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Sample Instance</h2>
+      <p class="content has-text-justified">
+              These generative models allow multiple plausible realities to be sampled. We provide three here.
+      </p>
+      <div class="row">
+        <div id='stereo_sample_selector_1' style='margin-left:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='stereo_viewer.change_sample(0);'> 1 </div>
+        <div id='stereo_sample_selector_2' style='margin-left:0.4em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='stereo_viewer.change_sample(1);'> 2 </div>
+        <div id='stereo_sample_selector_3' style='margin-left:0.4em;margin-right:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='stereo_viewer.change_sample(2);'> 3 </div>
+      </div>
+    </div>
+    <br/>
+    <h3 class="subtitle">Stereo Generations</h2>
+    <div class="row">
+      <div class=col-3 style='flex:0 0 40%;max-width:40%;margin-left:auto;'>
+        <img id='stereo-set-markov-left' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle" id='stereo-set-markov-left-label'>Ours-Markov-LEFT</h5>
+      </div>
+      <div class=col-3 style='flex:0 0 40%;max-width:40%;margin-right:auto;'>
+        <img id='stereo-set-markov-right' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle" id='stereo-set-markov-right-label'>Ours-Markov-RIGHT</h5>
+      </div>
+      <div class=col-3 style='flex:0 0 40%;max-width:40%;margin-left:auto;'>
+        <img id='stereo-set-keyframed-left' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle" id='stereo-set-keyframed-left-label'>Ours-Keyframed-LEFT</h5>
+      </div>
+      <div class=col-3 style='flex:0 0 40%;max-width:40%;margin-right:auto;'>
+        <img id='stereo-set-keyframed-right' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+        <h5 class="subtitle" id='stereo-set-keyframed-right-label'>Ours-Keyframed-RIGHT</h5>
+      </div>
+    </div>
+    <div onclick='stereo_viewer.flip_ims();' class=selectable>Flip stereo pairs</div>
+    <br/>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Frame Control (automated playback or manual slider)</h2>
+      <p class="content has-text-justified">
+        Click the button above to flip the left right stereo pairs, this can enable cross-eyed stereoscopic viewing for viewers that know how.
+        Notice that the naive generation experiences large lateral motions within each side of the stereo pairs.
+        The naive sampling makes it difficult for the model to maintain a constant scene scale across stereo pairs.
+      </p>
+      <div class="row">
+        <div class="col-2"> <div onclick='stereo_viewer.stop_anim();' class=selectable>Stop animation</div> </div>
+        <div class="col-2"> <div onclick='stereo_viewer.cycle_frames(200);' class=selectable>Play at 5fps</div> </div>
+        <div class="col-2"> <div onclick='stereo_viewer.cycle_frames(100);' class=selectable>Play at 10fps</div> </div>
+      </div>
+      <br/>
+      <div class="row">
+        <input style="width:100%;margin-left:1em;margin-right:1em;" type="range" min="0" max="20" value="0" id='stereo_frame_control' oninput='stereo_viewer.change_frame(document.getElementById("stereo_frame_control").value);'>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="hero-body">
+  <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">RealEstate10K Qualitative Results: Alternative Sampling</h2>
+    <div class="content has-text-justified">
+      <p class="content has-text-justified">
+        Here we explore an alternative sampling strategy for sampling arbitrary sets of views.
+        An initial image is provided which lies at the center of a grid of views (outlined in red).
+        This set of views orbit the scene at a fixed radius.
+        Generated views can be inspected by hovering your cursor over the grey squares at the bottom of the Viewer.
+      </p>
+      <p>
+        We also provide a visualizer to inspect the sampling order selected by our heuristic, see the supplemental document for more details.
+      </p>
+    </div>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Viewer</h2>
+      <div class=col-3 style='flex:0 0 40%;max-width:40%;margin:auto;'>
+        <img id='cloud-viewer' style='width:100%;' src="assets/individual-frames/spin/0000/sde/00/0001.png">
+      </div>
+      <br>
+      <p>
+      The outlined view is the initial image.
+      Hover your cursor over the the squares to see different views.
+      Moving horizontally along the squares changes the camera's azimuth, while moving vertically changes the camera's elevation.
+      </p]>
+      <br>
+      <div id="cloud_selector" class="row">
+      </div>
+    </div>
+    <br>
+    <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+      <h4 style="text-align:left;">Sampling order visualization</h2>
+      <p class="content has-text-justified">
+        Move the slider to inspect how views are sampled when generating a set of views.
+      </p>
+      <p class="content has-text-justified">
+        Notice that we first generate a sparse set of keyframes before generating the remaining views.
+      </p>
+      <div id="cloud_visualizer" class="row">
+      </div>
+      <br>
+      <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:center;">Legend</h2>
+        <div style="display:flex;">
+          <div style="margin:auto;width:1em;height:1em;background-color:none;border-radius:0.5em;border-color:red;border-style:solid;border-width:0.3em;"></div>
+          Given View
+          <div style="margin:auto;width:1em;height:1em;background-color:#919191;border-radius:0.5em;"></div>
+          Ungenerated View
+          <div style="margin:auto;width:1em;height:1em;background-color:#9191ff;border-radius:0.5em;"></div>
+          Conditioning View
+          <div style="margin:auto;width:1em;height:1em;background-color:orange;border-radius:0.5em;"></div>
+          View being generated
+          <div style="margin:auto;width:1em;height:1em;background-color:green;border-radius:0.5em;"></div>
+          Already generated view
+        </div>
+      </div>
+      <br>
+      View sampling step
+      <div class="row">
+        <input style="width:100%;margin-left:1em;margin-right:1em;" type="range" min="0" max="49" value="0" id='cloud_sample_step' oninput='cloud_viewer.change_step(document.getElementById("cloud_sample_step").value);'>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX" style="padding-top:0;">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre style="border-radius:1em;"><code>@inproceedings{Yu2024PolyOculusNVS,
+  title={PolyOculus: Simultaneous Multi-view Image-based Novel View Synthesis},
+  author={Jason J. Yu and  Tristan Aumentado-Armstrong and Fereshteh Forghani and Konstantinos G. Derpanis and Marcus A. Brubaker},
+  booktitle={{Proceedings of the European Conference on Computer Vision ({ECCV})}},
+  year={2024},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> and <a href="https://github.com/nesf3d/nesf3d.github.io">NeSF</a>. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
