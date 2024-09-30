@@ -7,7 +7,7 @@ Please install the included environments in the root of this repo:
 conda env create -f environment.yaml
 ```
 Training requires Torchvision with video_reader support, requiring the library to be built from source.
-This can be done by first activating the training conda environment `polyoculus`, and cloning the Torchvision repo somewhere on your system: `https://github.com/pytorch/vision/tree/release/0.15`.
+This can be done by first activating the training conda environment `polyoculus`, and cloning the Torchvision repo somewhere on your system: [torchvision](https://github.com/pytorch/vision/tree/release/0.15).
 Checkout the `release/0.15` branch of Torchvision, and run:
 ```
 python setup.py install
