@@ -71,7 +71,7 @@ Training uses PyTorch Lightning. An example slurm script is provided under `src/
 ## Pretrained weights
 RealEstate10K VQGAN weights: [Google Drive](https://drive.google.com/file/d/1OdoBd6ChbusRc4gSsvw16XKyqOmfwB1p/view?usp=drive_link)
 
-RealEstate10K diffusion model weights: [Google Drive](https://drive.google.com/file/d/1OdoBd6ChbusRc4gSsvw16XKyqOmfwB1p/view?usp=drive_link)
+RealEstate10K diffusion model weights: [Google Drive](https://drive.google.com/file/d/1Og_USg-8uzfakVC41TJ3SD-eSzJ-JSUH/view?usp=drive_link)
 
 Please place the first stage VQGAN weights under `instance-data-realestate-vqgan/checkpoints/` and the diffusion model weights under `instance-data-realestate-multiview_ldm/checkpoints/`.
 
