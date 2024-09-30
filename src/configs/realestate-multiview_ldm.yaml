@@ -1,0 +1,96 @@
+instance_data_dir: '../instance_data-realestate-multiview_ldm'
+model:
+  python_class: models.multiview_ldm.Multiview_LDM
+  params:
+    base_learning_rate: 2.0e-06
+    training_batch_size: ${data.params.train.loader.batch_size}
+    timesteps: 1000
+    beta_schedule: 'linear'
+    linear_start: 0.0015
+    linear_end: 0.0195
+    cosine_s: null
+    v_posterior: 0
+    use_ema: true
+    ray_resolutions: [32,16,8,4]
+    ray_frequencies: 4
+    ray_half_period: 6
+    unet_config:
+      python_class: models.multiview_unet.openaimodel.UNetModel
+      params:
+        image_size: 32 # code doesn't acutally use this
+        in_channels: 3
+        out_channels: 3
+        model_channels: 128
+        ray_channels: 54
+        attention_resolutions:
+        # note: this isn\t actually the resolution but
+        # the downsampling factor, i.e. this corresnponds to
+        # attention on spatial resolution 8,16,32, as the
+        # spatial reolution of the latents is 64 for f4
+        - 16 # 4
+        - 8 # 8
+        - 4 # 16
+        - 2 # 32
+        num_res_blocks: 2
+        channel_mult:
+        - 1 # 64
+        - 2 # 32
+        - 3 # 16
+        - 4 # 8
+        num_head_channels: 32
+    latent_autoencoder_config:
+      python_class: models.VQGAN.vqgan.VQModel
+      params:
+        ckpt_path: '../instance_data-realestate-vqgan/checkpoints/epoch=0200-step=00000000.ckpt'
+        embed_dim: 3
+        n_embed: 16384
+        ddconfig:
+          double_z: False
+          z_channels: 3
+          resolution: 256
+          in_channels: 3
+          out_ch: 3
+          ch: 128
+          ch_mult: [ 1,2,4]  # num_down = len(ch_mult)-1
+          num_res_blocks: 2
+          attn_resolutions: []
+          dropout: 0.0
+        base_learning_rate: 4.5e-6
+        latent_scaling: 0.25
+        training_batch_size: ${data.params.train.loader.batch_size}
+        lossconfig:
+          python_class: models.VQGAN.losses.vqperceptual.VQLPIPSWithDiscriminator
+          params:
+            disc_conditional: False
+            disc_in_channels: 3
+            disc_start: 30001
+            disc_weight: 0.8
+            codebook_weight: 1.0
+data:
+  python_class: utils.lightning.GenericDataModule.GenericDataModule
+  params:
+    train:
+      python_class: datasets.Multi_realestate_dataset.Multi_realestate_dataset
+      params:
+        split: 'train'
+        n_views: 5
+        variable_n_views: True
+      loader:
+        shuffle: true
+        batch_size: 2
+        num_workers: 4
+logger:
+  python_class: lightning.pytorch.loggers.WandbLogger
+  params:
+    save_dir: ${instance_data_dir}
+    project: polyoculus
+    name: realestate
+trainer:
+  max_epochs: 200 # override default
+  strategy: ddp_find_unused_parameters_true # not all params are trained
+  callbacks:
+    - python_class: utils.lightning.callbacks.Multiview_LDM_image_logger.Multiview_LDM_image_logger
+      params:
+        batch_frequency: 500
+        max_images: 5
+        increase_log_steps: false

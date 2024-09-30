@@ -1,0 +1,17 @@
+custom_checkpointer:
+  python_class: utils.lightning.callbacks.Custom_checkpointer
+  params:
+    checkpoint_root: '${instance_data_dir}/checkpoints' # override path
+    time_interval: 3000
+    keep_n_last: 2
+    keep_epoch_interval: 10
+    handle_signals:
+      - SIGTERM
+      - SIGINT
+      - SIGUSR2
+trainer:
+  max_epochs: 200
+  strategy: ddp
+  default_root_dir: ${instance_data_dir}
+  use_distributed_sampler: false # disable default behaviour, we have a custom one
+  enable_checkpointing: false # disable default behaviour, we have a custom one
