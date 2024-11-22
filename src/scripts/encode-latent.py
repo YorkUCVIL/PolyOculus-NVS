@@ -58,13 +58,13 @@ def main():
     model.cuda()
 
     # find scene id
-    scenes_path = pjoin(cli_args.out_dir,'scenes')
+    scenes_path = pjoin(config.instance_data_dir,cli_args.out_dir,'scenes')
     scenes = os.listdir(scenes_path)
     scenes.sort()
 
     for cur_scene in tqdm(scenes):
         sampling_instance_root = pjoin(scenes_path,cur_scene)
-        sample_root = pjoin(sampling_instance_root,f'samples/{0:08d}')
+        sample_root = pjoin(sampling_instance_root,'observed')
         latents_root = pjoin(sample_root,'latents')
         images_root = pjoin(sample_root,'images')
         os.makedirs(latents_root,exist_ok=True)
